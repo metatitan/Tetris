@@ -20,6 +20,8 @@ int calcCols(int tetro[][]);
 int xPos = 1;
 int yPos = 1;
 
+//some comment for git
+++
 
 
 int main(){
@@ -62,7 +64,7 @@ int * copyBoard(int board[ROWS][COLS]){
 }
 
 void nullBoard(int *board[ROWS][COLS]){
-	
+
 }
 
 void drawBoard(int *board){
