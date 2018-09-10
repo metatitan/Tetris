@@ -29,6 +29,10 @@ char currentTetro = 'o';
 
 int running = 1;
 
+int startAnother = 0;
+
+int thisRoundCollided = 0;
+
 
 
 
@@ -50,6 +54,8 @@ int main(){
 
 		cb = copyBoard(gameboard);
 
+		int firstTime = 0;
+
 		for(int i = 0; i < calcRows(); i++){
 			for(int j = 0; j < calcCols(); j++){
 				//printf("%d\n", (cb + (j + yPos) + (i + xPos) * COLS));
@@ -57,20 +63,33 @@ int main(){
 				if((xPos + calcRows()) == ROWS){
 					printf("Reached bottom\n");
 					gameboard[i + xPos][j + yPos] = sum;
+					startAnother = 1;
 				}else if(sum == 2){
 					printf("Reached another one");
-					xPos = xPos - 1;
+					if(firstTime == 0){
+						xPos = xPos - 1;
+						firstTime = 1;
+					}
+					sum = 1;
+					gameboard[i + xPos][j + yPos] = sum;
+					startAnother = 1;
+					thisRoundCollided = 1;
+				}else if(thisRoundCollided = 1){
 					gameboard[i + xPos][j + yPos] = sum;
 				}
 				*(cb + (j + yPos) + (i + xPos) * COLS) = sum;
 			}
 		}
 
+		firstTime = 0;
+		thisRoundCollided = 0;
+
 		//running = 0;
-		if(xPos < ROWS){
+		if(startAnother == 0){
 			xPos+= 1;
 		}else{
 			xPos = 1;
+			startAnother = 0;
 		}
 
 
